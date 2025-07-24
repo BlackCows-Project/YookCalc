@@ -5,18 +5,21 @@ import cafe.adriel.voyager.navigator.Navigator
 // 필요한 이동 함수들을 계속 추가 가능
 object NavigationActions {
 
-//     예시
-//    fun navigateToProfileDetail(navigator: Navigator) {
-//        navigator.push(ProfileDetailScreen)
+//    Screen -> 이동 함수 추가
+//    object NavigationActions {
+//        fun navigateToSettingScreen(navigator: Navigator) {
+//            navigator.push(SettingScreen)
+//        }
 //    }
 
-    // UI에서 직접
+//    UI코드에서 호출
 //    @Composable
 //    fun MyPageScreenUI(navigator: Navigator) {
 //        Column {
-//            Button(onClick = { NavigationActions.navigateToProfileDetail(navigator) }) {
-//                Text("내 정보 상세 보기")
+//            Button(onClick = { NavigationActions.navigateToSettingScreen(navigator) }) {
+//                Text("설정")
 //            }
 //        }
 //    }
+
 }
