@@ -53,31 +53,61 @@ kotlin {
 
     sourceSets {
 
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.runtimeCompose)
+            }
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
 
-        // Voyager 라이브러리 추가
-        commonMain.dependencies {
-            implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
-            implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.0")
-            implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.0")
-            implementation("cafe.adriel.voyager:voyager-transitions:1.0.0")
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
         }
+        // iOS 공통 소스셋
+        val iosMain = maybeCreate("iosMain").apply {
+            dependsOn(commonMain)
+        }
+
+        // 각 플랫폼이 iosMain을 사용하도록 연결
+        getByName("iosX64Main").dependsOn(iosMain)
+        getByName("iosArm64Main").dependsOn(iosMain)
+        getByName("iosSimulatorArm64Main").dependsOn(iosMain)
+
+        val androidMain by getting {
+            dependencies {
+                implementation(compose.preview)
+                implementation(libs.androidx.activity.compose)
+            }
+        }
+
+        val wasmJsMain by getting {
+            dependencies {
+                //
+            }
+        }
+
+        // 새 소스셋 추가 (Android + iOS 공통)
+        val mobileMain by creating {
+            dependsOn(commonMain)
+            dependencies { // Voyager 의존성 mobileMain에 추가
+                implementation("cafe.adriel.voyager:voyager-navigator:1.0.0")
+                implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.0")
+            }
+        }
+
+        // androidMain, iosMain이 mobileMain을 참조하도록
+        androidMain.dependsOn(mobileMain)
+        iosMain.dependsOn(mobileMain)
     }
 
     android {
