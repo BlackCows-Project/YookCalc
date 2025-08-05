@@ -8,6 +8,6 @@ import kotlinx.browser.document
 fun main() {
     println("=== main 실행됨 ===")
     ComposeViewport(document.body!!) {
-        WebApp() // 기존에 만들었던 WebApp() 그대로 사용
+        WebApp() // 기존에 만들었던 WebApp() 그대로 사용.
     }
 }
