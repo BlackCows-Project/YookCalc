@@ -7,7 +7,7 @@ import cafe.adriel.voyager.navigator.tab.TabOptions
 import com.example.yookcalc.presentation.feature.maternity.MaternityUI
 import com.example.yookcalc.presentation.feature.parental.ParentalUI
 import com.example.yookcalc.presentation.feature.shortened_work.ShortenedWorkUI
-import com.example.yookcalc.screen.MyPageScreen
+import com.example.yookcalc.ui.MyPageScreen
 
 
 sealed class AppTab(
