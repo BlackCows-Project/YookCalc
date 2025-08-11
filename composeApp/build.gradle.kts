@@ -27,13 +27,12 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-            freeCompilerArgs += "-Xbinary=bundleId=com.example.demo"
+            freeCompilerArgs += "-Xbinary=bundleId=com.example.yookcalc"
         }
     }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        outputModuleName.set("composeApp")
         browser {
             val rootDirPath = project.rootDir.path
             val projectDirPath = project.projectDir.path
@@ -52,7 +51,6 @@ kotlin {
     }
 
     sourceSets {
-
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
@@ -61,7 +59,7 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
-                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
             }
         }
@@ -69,20 +67,7 @@ kotlin {
             implementation(libs.kotlin.test)
         }
 
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
-        // iOS 공통 소스셋
-        val iosMain = maybeCreate("iosMain").apply {
-            dependsOn(commonMain)
-        }
-
-        // 각 플랫폼이 iosMain을 사용하도록 연결
-        getByName("iosX64Main").dependsOn(iosMain)
-        getByName("iosArm64Main").dependsOn(iosMain)
-        getByName("iosSimulatorArm64Main").dependsOn(iosMain)
-
+        // androidMain 소스셋 정의를 한 곳으로 통합합니다.
         val androidMain by getting {
             dependencies {
                 implementation(compose.preview)
@@ -90,9 +75,26 @@ kotlin {
             }
         }
 
+        // iOS 공통 소스셋
+        val iosMain = maybeCreate("iosMain").apply {
+            dependsOn(commonMain)
+        }
+        // 각 플랫폼이 iosMain을 사용하도록 연결
+        getByName("iosX64Main").dependsOn(iosMain)
+        getByName("iosArm64Main").dependsOn(iosMain)
+        getByName("iosSimulatorArm64Main").dependsOn(iosMain)
+
+
         val wasmJsMain by getting {
             dependencies {
-                //
+                // 브라우저 API 직접 접근 (기본 포함될 수 있음)
+                //implementation(kotlin("stdlib-js"))
+
+                // 웹 소켓 예시 (Ktor 클라이언트 사용 시 commonMain에 core, wasmJsMain에 엔진)
+                //implementation("io.ktor:ktor-client-websockets:$ktor_version")
+
+                // JavaScript 라이브러리 통합 예시 (npm)
+                //implementation(npm("some-js-library", "1.0.0"))
             }
         }
 
@@ -109,6 +111,7 @@ kotlin {
         androidMain.dependsOn(mobileMain)
         iosMain.dependsOn(mobileMain)
     }
+}
 
     android {
         namespace = "com.example.yookcalc"
@@ -128,7 +131,11 @@ kotlin {
         }
         buildTypes {
             getByName("release") {
-                isMinifyEnabled = false
+                isMinifyEnabled = false  // 프로덕션 빌드 시 true로 변경하고 ProGuard 규칙을 추가하세요.
+                // proguardFiles(
+                //     getDefaultProguardFile("proguard-android-optimize.txt"),
+                //     "proguard-rules.pro"
+                // )
             }
         }
         compileOptions {
@@ -140,5 +147,5 @@ kotlin {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
-}
+
 

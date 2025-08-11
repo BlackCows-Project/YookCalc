@@ -1,7 +1,7 @@
 package com.example.yookcalc.navigation
 
 import cafe.adriel.voyager.navigator.Navigator
-import com.example.yookcalc.screen.SettingScreen
+import com.example.yookcalc.ui.SettingScreen
 
 // 스택 기반 네비게이션 (navigator.push, pop)
 // 필요한 이동 함수들을 계속 추가 가능
