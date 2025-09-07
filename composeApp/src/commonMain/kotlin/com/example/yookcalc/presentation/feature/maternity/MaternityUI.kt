@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,9 +19,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.koin.compose.koinInject
 
 @Composable
-fun MaternityUI(viewModel: MaternityViewModel = MaternityViewModel()) {
+fun MaternityUI(viewModel: MaternityViewModel = koinInject()) {
     println("[UI] MaternityUI Composable 실행됨")
     val state by viewModel.state.collectAsState()
 
@@ -29,6 +32,8 @@ fun MaternityUI(viewModel: MaternityViewModel = MaternityViewModel()) {
             println("[UI] Effect 수신 → $effect")
             when (effect) {
                 is MaternityEffect.ShowToast -> println("Toast: ${effect.message}")
+                is MaternityEffect.ShowError -> println("Error: ${effect.message}")
+                is MaternityEffect.ShowCalculationResult -> println("Result: $effect")
             }
         }
     }
@@ -96,8 +101,19 @@ fun MaternityUI(viewModel: MaternityViewModel = MaternityViewModel()) {
         }
 
         Spacer(Modifier.height(16.dp))
-        Button(onClick = { println("계산하기 버튼 클릭") }, modifier = Modifier.fillMaxWidth()) {
-            Text("계산하기")
+        // 계산하기 버튼
+        Button(
+            onClick = { viewModel.onEvent(MaternityEvent.CalculateMaternityPay) },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = !state.isLoading
+        ) {
+            if (state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.size(16.dp))
+                Spacer(Modifier.width(8.dp))
+                Text("계산 중...")
+            } else {
+                Text("계산하기")
+            }
         }
     }
 }

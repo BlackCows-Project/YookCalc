@@ -13,5 +13,8 @@ data class MaternityUiState(
     val first30DaysPay: String = "",
     val second30DaysPay: String = "",
     val third30DaysPay: String = "",
-    val compensation: String = ""
+    val compensation: String = "",
+
+    val isLoading: Boolean = false,
+    val calculationDetails: List<String> = emptyList()
 ) : UiState

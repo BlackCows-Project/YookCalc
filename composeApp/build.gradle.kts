@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinSerialization) // Serialization 플러그인 추가
 }
 
 kotlin {
@@ -61,10 +62,21 @@ kotlin {
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
+
+                // Coroutines 추가
+                implementation(libs.kotlinx.coroutines.core)
+
+                // Serialization 추가
+                implementation(libs.kotlinx.serialization.json)
+
+                // Koin 추가
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
             }
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test) // Coroutines 테스트 지원
         }
 
         // androidMain 소스셋 정의를 한 곳으로 통합합니다.
@@ -72,6 +84,12 @@ kotlin {
             dependencies {
                 implementation(compose.preview)
                 implementation(libs.androidx.activity.compose)
+                // Android용 Coroutines
+                implementation(libs.kotlinx.coroutines.android)
+
+                // Android용 Koin
+                implementation(libs.koin.android)
+                implementation(libs.koin.androidx.compose)
             }
         }
 
@@ -87,14 +105,7 @@ kotlin {
 
         val wasmJsMain by getting {
             dependencies {
-                // 브라우저 API 직접 접근 (기본 포함될 수 있음)
-                //implementation(kotlin("stdlib-js"))
-
-                // 웹 소켓 예시 (Ktor 클라이언트 사용 시 commonMain에 core, wasmJsMain에 엔진)
-                //implementation("io.ktor:ktor-client-websockets:$ktor_version")
-
-                // JavaScript 라이브러리 통합 예시 (npm)
-                //implementation(npm("some-js-library", "1.0.0"))
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
 
