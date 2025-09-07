@@ -9,4 +9,6 @@ sealed interface MaternityEvent : UiEvent {
     data class ChangeEndDate(val value: String) : MaternityEvent
     data class SelectMultipleBirth(val value: Boolean) : MaternityEvent // 버튼 클릭 시
     data class SelectMiscarriage(val value: Boolean) : MaternityEvent
+    object CalculateMaternityPay : MaternityEvent
+    object SaveCurrentInfo : MaternityEvent
 }
