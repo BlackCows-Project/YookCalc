@@ -2,10 +2,10 @@ package com.example.yookcalc.presentation.feature.maternity
 
 import com.example.yookcalc.base.BaseViewModel
 import com.example.yookcalc.domain.entity.MaternityInfo
-import com.example.yookcalc.domain.usecase.CalculateMaternityPayUseCase
-import com.example.yookcalc.domain.usecase.GetMaternityInfoUseCase
+import com.example.yookcalc.domain.usecase.Maternity.CalculateMaternityPayUseCase
+import com.example.yookcalc.domain.usecase.Maternity.GetMaternityInfoUseCase
 import com.example.yookcalc.domain.usecase.GetUserSalaryInfoUseCase
-import com.example.yookcalc.domain.usecase.SaveMaternityInfoUseCase
+import com.example.yookcalc.domain.usecase.Maternity.SaveMaternityInfoUseCase
 import kotlinx.coroutines.launch
 
 class MaternityViewModel(private val getMaternityInfoUseCase: GetMaternityInfoUseCase,

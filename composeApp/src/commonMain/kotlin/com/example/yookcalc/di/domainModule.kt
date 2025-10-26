@@ -1,9 +1,9 @@
 package com.example.yookcalc.di
 
-import com.example.yookcalc.domain.usecase.CalculateMaternityPayUseCase
-import com.example.yookcalc.domain.usecase.GetMaternityInfoUseCase
+import com.example.yookcalc.domain.usecase.Maternity.CalculateMaternityPayUseCase
+import com.example.yookcalc.domain.usecase.Maternity.GetMaternityInfoUseCase
 import com.example.yookcalc.domain.usecase.GetUserSalaryInfoUseCase
-import com.example.yookcalc.domain.usecase.SaveMaternityInfoUseCase
+import com.example.yookcalc.domain.usecase.Maternity.SaveMaternityInfoUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
