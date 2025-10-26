@@ -1,4 +1,4 @@
-package com.example.yookcalc.domain.usecase
+package com.example.yookcalc.domain.usecase.Maternity
 
 import com.example.yookcalc.domain.entity.MaternityInfo
 import com.example.yookcalc.domain.repository.MaternityRepository
