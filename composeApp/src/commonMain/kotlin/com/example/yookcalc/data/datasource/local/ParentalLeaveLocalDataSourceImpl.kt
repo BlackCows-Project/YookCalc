@@ -6,8 +6,8 @@ import com.example.yookcalc.data.storage.StorageProvider
 import kotlinx.serialization.json.Json
 
 class ParentalLeaveLocalDataSourceImpl(
-    private val preferenceStorage: PreferenceStorage = StorageProvider.providePreferenceStorage()
-): ParentalLeaveLocalDataSource {
+    private val preferenceStorage: PreferenceStorage = StorageProvider.providePreferenceStorage(),
+) : ParentalLeaveLocalDataSource {
 
     companion object {
         private const val KEY_PARENTAL_LEAVE_DATA = "parental_leave_data"

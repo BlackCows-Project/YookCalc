@@ -9,7 +9,5 @@ actual object StorageProvider {
         this.context = context
     }
 
-    actual fun providePreferenceStorage(): PreferenceStorage {
-        return AndroidPreferenceStorage(context)
-    }
+    actual fun providePreferenceStorage(): PreferenceStorage = AndroidPreferenceStorage(context)
 }
