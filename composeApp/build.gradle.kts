@@ -62,6 +62,8 @@ kotlin {
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
                 implementation(libs.kotlinx.datetime)
+                implementation(libs.bundles.ktor)
+                implementation(libs.gson)
             }
         }
         commonTest.dependencies {
@@ -73,12 +75,16 @@ kotlin {
             dependencies {
                 implementation(compose.preview)
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.ktor.android)
             }
         }
 
         // iOS 공통 소스셋
         val iosMain = maybeCreate("iosMain").apply {
             dependsOn(commonMain)
+            dependencies {
+                implementation(libs.ktor.ios)
+            }
         }
         // 각 플랫폼이 iosMain을 사용하도록 연결
         getByName("iosX64Main").dependsOn(iosMain)
@@ -96,6 +102,7 @@ kotlin {
 
                 // JavaScript 라이브러리 통합 예시 (npm)
                 //implementation(npm("some-js-library", "1.0.0"))
+                implementation(libs.ktor.wasm)
             }
         }
 

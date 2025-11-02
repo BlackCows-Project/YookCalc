@@ -1,6 +1,6 @@
 package com.example.yookcalc.domain.entity
 
-import com.example.yookcalc.data.settings.DaysOfLeaveSetting.getDaysOfLeave
+import com.example.yookcalc.data.settings.MaternityLeaveSetting.getDaysOfLeave
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -28,10 +28,10 @@ data class MaternityLeave(
     val maxDaysOfLeave
         get() = type.getDaysOfLeave(birthDate)
 
-    enum class InfantType {
-        PRETERM, // 미숙아
-        MULTIFETAL, // 다태아
-        SINGLE; // 단태아
+    enum class InfantType(val value: String) {
+        PRETERM("premie"), // 미숙아
+        MULTIFETAL("multiple"), // 다태아
+        SINGLE("single"); // 단태아
 
         val minimumAftBirthDaysOfLeave
             get() = when (this) {
