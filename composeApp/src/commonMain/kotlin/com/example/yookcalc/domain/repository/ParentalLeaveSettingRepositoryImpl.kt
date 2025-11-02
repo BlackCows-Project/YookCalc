@@ -10,7 +10,7 @@ import com.example.yookcalc.data.repository.ParentalLeaveSettingRepository
 class ParentalLeaveSettingRepositoryImpl(
     val local: ParentalLeaveLocalDataSource = ParentalLeaveLocalDataSourceImpl(),
     val remote: ParentalLeaveRemoteDataSource = ParentalLeaveRemoteDataSourceImpl(),
-): ParentalLeaveSettingRepository {
+) : ParentalLeaveSettingRepository {
     override suspend fun getLeavePaySettings(): List<ParentalLeavePolicy>? {
         return local.getLeavePay() ?: run {
             remote.getLeavePay().also {

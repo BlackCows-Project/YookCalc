@@ -10,7 +10,7 @@ import com.example.yookcalc.data.repository.MaternityLeaveSettingRepository
 class MaternityLeaveSettingRepositoryImpl(
     val local: MaternityLeaveLocalDataSource = MaternityLeaveLocalDataSourceImpl(),
     val remote: MaternityLeaveRemoteDataSource = MaternityLeaveRemoteDataSourceImpl(),
-): MaternityLeaveSettingRepository {
+) : MaternityLeaveSettingRepository {
     override suspend fun getLeaveDaySettings(): List<MaternityLeavePolicy>? {
         return local.getLeaveDay() ?: run {
             remote.getLeaveDay().also {
