@@ -5,6 +5,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
 
 
 data class MaternityLeave(
@@ -28,6 +29,7 @@ data class MaternityLeave(
     val maxDaysOfLeave
         get() = type.getDaysOfLeave(birthDate)
 
+    @Serializable
     enum class InfantType(val value: String) {
         PRETERM("premie"), // 미숙아
         MULTIFETAL("multiple"), // 다태아

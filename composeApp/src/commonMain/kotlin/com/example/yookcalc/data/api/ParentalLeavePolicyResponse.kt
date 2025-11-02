@@ -2,12 +2,14 @@ package com.example.yookcalc.data.api
 
 import com.example.yookcalc.data.model.ParentalLeavePolicy
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 data class ParentalLeavePolicyResponse(
     @SerialName("appliedAt") val appliedAt: String? = null,
     @SerialName("policyType") val policyType: String? = null,
     @SerialName("leavePayPolicy") val leavePayPolicy: ParentalLeavePayPolicyResponse? = null,
 ) {
+    @Serializable
     enum class PolicyType(val value: String) {
         NORMAL("normal"),
         SIX("six");

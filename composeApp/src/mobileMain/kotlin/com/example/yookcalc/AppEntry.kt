@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import com.example.yookcalc.data.storage.initializeStorage
 import com.example.yookcalc.domain.usecase.MaternityLeaveSettingUseCase
 import com.example.yookcalc.domain.usecase.ParentalLeaveSettingUseCase
 import com.example.yookcalc.navigation.AppTab
@@ -27,6 +28,8 @@ import kotlinx.coroutines.flow.combine
 // Android와 iOS는 모두 이 AppEntry를 사용
 @Composable
 fun AppEntry() {
+    initializeStorage()
+
     var isLoading by remember { mutableStateOf(true) }
     val parentalLeaveUseCase = remember { ParentalLeaveSettingUseCase() }
     val maternityLeaveUseCase = remember { MaternityLeaveSettingUseCase() }
