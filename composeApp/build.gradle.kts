@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    kotlin("plugin.serialization") version "2.2.0"
+    alias(libs.plugins.kotlinSerialization) // Serialization 플러그인 추가
 }
 
 kotlin {
@@ -65,10 +65,21 @@ kotlin {
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.bundles.ktor)
                 implementation(libs.gson)
+
+                // Coroutines 추가
+                implementation(libs.kotlinx.coroutines.core)
+
+                // Serialization 추가
+                implementation(libs.kotlinx.serialization.json)
+
+                // Koin 추가
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
             }
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test) // Coroutines 테스트 지원
         }
 
         // androidMain 소스셋 정의를 한 곳으로 통합합니다.
@@ -77,6 +88,12 @@ kotlin {
                 implementation(compose.preview)
                 implementation(libs.androidx.activity.compose)
                 implementation(libs.ktor.android)
+                // Android용 Coroutines
+                implementation(libs.kotlinx.coroutines.android)
+
+                // Android용 Koin
+                implementation(libs.koin.android)
+                implementation(libs.koin.androidx.compose)
             }
         }
 
@@ -104,6 +121,7 @@ kotlin {
                 // JavaScript 라이브러리 통합 예시 (npm)
                 //implementation(npm("some-js-library", "1.0.0"))
                 implementation(libs.ktor.wasm)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
 

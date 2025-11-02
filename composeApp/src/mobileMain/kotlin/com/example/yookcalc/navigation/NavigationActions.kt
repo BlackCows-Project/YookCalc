@@ -11,4 +11,11 @@ object NavigationActions {
         println("[Navigation] SettingScreen으로 이동 요청")
         navigator.push(SettingScreen) // SettingScreen을 스택에 추가
     }
+
+    // 뒤로가기 <- 사용하면 됨
+    fun navigateBack(navigator: Navigator) {
+        if (navigator.canPop) {
+            navigator.pop()
+        }
+    }
 }
