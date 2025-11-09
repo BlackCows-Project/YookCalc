@@ -21,13 +21,8 @@ sealed class AppTab(
     @Composable
     override fun Content() = contentLambda()
 
-    object Maternity : AppTab(0u, "출산휴직", {
-        MaternityUI() })
-    object Parental : AppTab(1u, "육아휴직", {
-        ParentalUI() })
-    object ShortenedWork : AppTab(2u, "근로시간 단축", {
-        ShortenedWorkUI() })
-    object MyPage : AppTab(3u, "마이페이지", {
-        Navigator(MyPageScreen)// ← **중요: 여기서 Navigator 시작**
-    })
+    object Maternity : AppTab(0u, "출산휴직", { MaternityUI() })
+    object Parental : AppTab(1u, "육아휴직", { ParentalUI() })
+    object ShortenedWork : AppTab(2u, "근로시간 단축", { ShortenedWorkUI() })
+    object MyPage : AppTab(3u, "마이페이지", { Navigator(MyPageScreen) }) // ← **중요: 여기서 Navigator 시작**
 }

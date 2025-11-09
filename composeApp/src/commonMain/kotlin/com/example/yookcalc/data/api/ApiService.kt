@@ -2,20 +2,31 @@ package com.example.yookcalc.data.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.parameter
 import io.ktor.client.request.request
 import io.ktor.client.request.url
 import io.ktor.http.HttpMethod
-import io.ktor.http.cio.Response
-import io.ktor.http.parameters
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
 
 object ApiService {
 
     const val BASE_URL = "https://yook-calc-be-chi.vercel.app/api/v1/"
 
-    val httpClient by lazy { HttpClient() }
+    val httpClient by lazy {
+        HttpClient {
+            install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                })
+            }
+        }
+    }
 
     suspend inline fun <reified T> requestResult(
         method: HttpMethod,

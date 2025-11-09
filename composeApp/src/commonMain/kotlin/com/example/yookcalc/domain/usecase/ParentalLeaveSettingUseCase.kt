@@ -14,7 +14,6 @@ class ParentalLeaveSettingUseCase(private val repository: ParentalLeaveSettingRe
         return channelFlow {
             if (ParentalLeavePaySetting.isInitialized) {
                 trySend(Unit)
-                close()
             }
 
             val settings = async { repository.getLeavePaySettings() }
@@ -29,7 +28,6 @@ class ParentalLeaveSettingUseCase(private val repository: ParentalLeaveSettingRe
                 ParentalLeavePaySetting.setParentalLeavePaySetting(settings.await())
                 defaultSettingJob.cancel()
                 trySend(Unit)
-                close()
             }
         }
     }

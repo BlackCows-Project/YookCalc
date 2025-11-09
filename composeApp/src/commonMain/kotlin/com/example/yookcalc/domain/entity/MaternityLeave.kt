@@ -35,6 +35,12 @@ data class MaternityLeave(
         MULTIFETAL("multiple"), // 다태아
         SINGLE("single"); // 단태아
 
+        companion object {
+            fun fromValue(value: String): InfantType? {
+                return InfantType.entries.find { it.value == value }
+            }
+        }
+
         val minimumAftBirthDaysOfLeave
             get() = when (this) {
                 PRETERM,

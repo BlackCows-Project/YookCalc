@@ -14,7 +14,6 @@ class MaternityLeaveSettingUseCase(private val repository: MaternityLeaveSetting
         return channelFlow {
             if (MaternityLeaveSetting.isInitialized) {
                 trySend(Unit)
-                close()
             }
 
             val settings = async { repository.getLeaveDaySettings() }
@@ -29,7 +28,6 @@ class MaternityLeaveSettingUseCase(private val repository: MaternityLeaveSetting
                 MaternityLeaveSetting.setDaysOfLeave(settings.await())
                 defaultSettingJob.cancel()
                 trySend(Unit)
-                close()
             }
         }
     }

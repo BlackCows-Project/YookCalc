@@ -24,11 +24,8 @@ import com.example.yookcalc.navigation.BottomNavigationBar
 import com.example.yookcalc.presentation.theme.Theme
 import kotlinx.coroutines.flow.combine
 import com.example.yookcalc.di.appModules
-import com.example.yookcalc.navigation.AppTab
-import com.example.yookcalc.navigation.BottomNavigationBar
-import com.example.yookcalc.presentation.theme.Theme
+import kotlinx.coroutines.flow.takeWhile
 import org.koin.compose.KoinApplication
-import org.koin.core.KoinApplication
 
 // TabNavigator로 탭 네비게이션 시작
 // Android와 iOS는 모두 이 AppEntry를 사용
@@ -44,9 +41,9 @@ fun AppEntry() {
         combine(
             parentalLeaveUseCase(),
             maternityLeaveUseCase(),
-        ) { _, _ -> Unit }.collect {
-            isLoading = false
-        }
+        ) { _, _ -> Unit }
+            .takeWhile { isLoading }
+            .collect { isLoading = false }
     }
 
     Theme {
@@ -58,22 +55,24 @@ fun AppEntry() {
                 CircularProgressIndicator()
             }
         } else {
-    KoinApplication(application = {
-        // Koin DI 초기화 추가
-        modules(appModules)
-    }) {
-        Theme {
-            TabNavigator(AppTab.Maternity) { tabNavigator ->
-                Scaffold(
-                    bottomBar = {
-                        BottomNavigationBar(
-                            currentTab = tabNavigator.current,
-                            onTabSelected = { tabNavigator.current = it }
-                        )
-                    }
-                ) { paddingValues ->
-                    Surface(modifier = Modifier.padding(paddingValues)) {
-                        CurrentTab()
+            KoinApplication(application = {
+                // Koin DI 초기화 추가
+                modules(appModules)
+            }) {
+                Theme {
+                    TabNavigator(AppTab.Maternity) { tabNavigator ->
+                        Scaffold(
+                            bottomBar = {
+                                BottomNavigationBar(
+                                    currentTab = tabNavigator.current,
+                                    onTabSelected = { tabNavigator.current = it }
+                                )
+                            }
+                        ) { paddingValues ->
+                            Surface(modifier = Modifier.padding(paddingValues)) {
+                                CurrentTab()
+                            }
+                        }
                     }
                 }
             }
