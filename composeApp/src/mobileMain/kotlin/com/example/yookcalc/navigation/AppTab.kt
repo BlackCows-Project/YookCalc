@@ -12,17 +12,37 @@ import com.example.yookcalc.ui.MyPageScreen
 
 sealed class AppTab(
     private val tabIndex: UShort,
-    private val tabTitle: String,
-    private val contentLambda: @Composable () -> Unit
+    private val tabTitle: String
 ) : Tab {
+
     override val options: TabOptions
         @Composable get() = TabOptions(index = tabIndex, title = tabTitle)
 
-    @Composable
-    override fun Content() = contentLambda()
+    object Maternity : AppTab(0u, "출산휴직") {
+        @Composable
+        override fun Content() {
+            MaternityUI()
+        }
+    }
 
-    object Maternity : AppTab(0u, "출산휴직", { MaternityUI() })
-    object Parental : AppTab(1u, "육아휴직", { ParentalUI() })
-    object ShortenedWork : AppTab(2u, "근로시간 단축", { ShortenedWorkUI() })
-    object MyPage : AppTab(3u, "마이페이지", { Navigator(MyPageScreen) }) // ← **중요: 여기서 Navigator 시작**
+    object Parental : AppTab(1u, "육아휴직") {
+        @Composable
+        override fun Content() {
+            ParentalUI()
+        }
+    }
+
+    object ShortenedWork : AppTab(2u, "근로시간 단축") {
+        @Composable
+        override fun Content() {
+            ShortenedWorkUI()
+        }
+    }
+
+    object MyPage : AppTab(3u, "마이페이지") {
+        @Composable
+        override fun Content() {
+            Navigator(MyPageScreen)
+        }
+    }
 }
