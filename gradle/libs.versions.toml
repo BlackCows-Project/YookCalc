@@ -13,14 +13,13 @@ androidx-testExt = "1.2.1"
 composeMultiplatform = "1.8.2"
 junit = "4.13.2"
 kotlin = "2.2.0"
-kotlinx-datetime = "0.6.1"
+kotlinx-datetime = "0.7.1"
 ktor = "3.3.0"
 gson = "2.8.8"
 coroutines = "1.8.0"
 serialization = "1.6.3"
 koin = "4.0.0"
 koin-compose = "1.2.0-Beta4"
-kotlinx-datetime = "0.7.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -46,7 +45,6 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson"}
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 # Serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
@@ -63,7 +61,7 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 ktor = ["ktor-core", "ktor-client", "ktor-serialization"]
-kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

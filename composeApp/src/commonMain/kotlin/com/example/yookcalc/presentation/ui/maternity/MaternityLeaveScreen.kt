@@ -213,7 +213,7 @@ private fun ResultDisplay(result: MaternityLeaveCalculator.LeaveCalculationResul
                 "✅ 산후 필수일수 충족 여부",
                 if (result.isPostpartumMet) "충족" else "부족 (시작일 조정 필요)",
                 // Use M3 theme colors for success/error states
-                contentColor = if (result.isPosteamMet) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                contentColor = if (result.isPostpartumMet) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
             )
             ResultItem("📅 산전휴가 최대 사용 시 시작 가능일", result.maxPrenatalStartDate.toString())
         }
