@@ -19,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
 @Composable
@@ -116,4 +117,10 @@ fun MaternityUI(viewModel: MaternityViewModel = koinInject()) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun MaternityUIPreview() {
+    MaternityUI()
 }

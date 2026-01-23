@@ -20,7 +20,7 @@ data class MaternityLeave(
         "",
         listOf(),
         InfantType.SINGLE,
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        LocalDate(2025, 1, 1) // 임시로 고정 날짜 사용 (빌드 오류 해결용)
     )
 
     val totalDaysOfLeaveBefBirth
